@@ -1,0 +1,18 @@
+<ul class="breadcrumb">
+    <li><a href="/">Home</a> <span class="divider">/</span></li>
+    <li><a href="<%- pathTo.categories() %>">categories</a> <span class="divider">/</span></li>
+    <li class="active"><a href="#">New category</a></li>
+</ul>
+
+<div class="page-header">
+    <h1>New category</h1>
+</div>
+
+<% var form = formFor(category, {action: pathTo.categories(), method: 'POST', id: "category-form", class: 'form-horizontal'}) %>
+<%- form.begin() %>
+<%- include _form %>
+<div class="form-actions">
+    <%- form.submit('<i class="icon-ok icon-white"></i> Create category', {class: 'btn btn-primary'}) %> or
+    <%- linkTo('Cancel', pathTo.categories(), {class: 'btn'}) %>
+</div>
+<%- form.end() %>
