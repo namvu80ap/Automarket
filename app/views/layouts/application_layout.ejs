@@ -8,7 +8,7 @@
         <meta charset="utf8">
         <meta name="viewport" content="initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
     </head>
-    <body> 
+    <body>
       <div class="navbar navbar-default navbar-fixed-top">
       <div class="container">
         <div class="navbar-header">
@@ -64,54 +64,52 @@
       </div>
     </div>
 
-        <div class="container">
-        		<!-- Banner -->
-			      <div class="page-header" id="banner">
-			        <div class="row">
-			          <div class="col-lg-6">
-			            <h1>AutoMarket</h1>
-			            <p class="lead">We are trading Japan cars.</p>
-			          </div>
-			          <!--
-			          <div class="col-lg-6">
-			            <div class="bsa well">
-			                <div id="bsap_1277971" class="bsarocks bsap_c466df00a3cd5ee8568b5c4983b6bb19"></div>
-			            </div>
-			          </div>
-			          -->
-			        </div>
-			      </div>
-			      
-            <% var flash = request.flash('info').pop(); if (flash) { %>
-                <div class="alert alert-info">
-                    <a class="close" data-dismiss="alert">×</a>
-                    <%- flash %>
-                </div>
-            <% } %>
+    <div class="container">
+		<!-- Banner -->
+	      <div class="page-header" id="banner">
+	        <div class="row">
+	          <div class="col-lg-6">
+	            <h1>AutoMarket</h1>
+	            <p class="lead">We are trading Japan cars.</p>
+	          </div>
+	          <!--
+	          <div class="col-lg-6">
+	            <div class="bsa well">
+	                <div id="bsap_1277971" class="bsarocks bsap_c466df00a3cd5ee8568b5c4983b6bb19"></div>
+	            </div>
+	          </div>
+	          -->
+	        </div>
+	      </div>
+		      
+        <% var flash = request.flash('info').pop(); if (flash) { %>
+            <div class="alert alert-info">
+                <a class="close" data-dismiss="alert">×</a>
+                <%- flash %>
+            </div>
+        <% } %>
 
-            <% flash = request.flash('error').pop(); if (flash) { %>
-                <div class="alert alert-error">
-                    <a class="close" data-dismiss="alert">×</a>
-                    <%- flash %>
-                </div>
-            <% }; %>
-            <%- body %>
-            <hr />
-            
-            <!-- FOOTER  -->
-		     		<footer>
-				        <div class="row">
-				          <div class="col-lg-12">
-				          	<p>&copy; Company <% var d=new Date();%><%= d.getFullYear() %></p>  
-				            <p>Made by <a href="http://thomaspark.me">Thomas Park</a>. Contact him at <a href="mailto:hello@thomaspark.me">hello@thomaspark.me</a>.</p>
-				            <p>Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>.</p>
-				            <p>Based on <a href="http://getbootstrap.com">Bootstrap</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts">Google</a>. Favicon by <a href="https://twitter.com/geraldhiller">Gerald Hiller</a>.</p>
-				          </div>
-				        </div>
-                
-            </footer>
-        </div>
+        <% flash = request.flash('error').pop(); if (flash) { %>
+            <div class="alert alert-error">
+                <a class="close" data-dismiss="alert">×</a>
+                <%- flash %>
+            </div>
+        <% }; %>
+        <%- body %>
+        <hr />
         
+        <!-- FOOTER  -->
+ 		<footer>
+	        <div class="row">
+	          <div class="col-lg-12">
+	          	<p>&copy; Company <% var d=new Date();%><%= d.getFullYear() %></p>  
+	            <p>Made by <a href="http://thomaspark.me">Thomas Park</a>. Contact him at <a href="mailto:hello@thomaspark.me">hello@thomaspark.me</a>.</p>
+	            <p>Code licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License v2.0</a>.</p>
+	            <p>Based on <a href="http://getbootstrap.com">Bootstrap</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/">Font Awesome</a>. Web fonts from <a href="http://www.google.com/webfonts">Google</a>. Favicon by <a href="https://twitter.com/geraldhiller">Gerald Hiller</a>.</p>
+	          </div>
+	        </div>
+        </footer>
+    </div>
     </body>
 </html>
 <%- contentFor('javascripts') %>
