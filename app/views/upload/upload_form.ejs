@@ -1,0 +1,10 @@
+<% var form = formFor('upload_test', {action: 'upload_file', method: 'POST', id: "upload-form", class: 'form-horizontal', enctype: 'multipart/form-data'}) %>  
+
+ <%- form.begin() %>  
+   <%- include _form_upload %>  
+
+   <div class="form-actions">  
+     <%- form.submit('<i class="icon-ok icon-white"></i> Save & upload file', {class: 'btn btn-primary'}) %>  
+   </div>  
+
+ <%- form.end() %> 
