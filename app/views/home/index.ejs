@@ -13,10 +13,10 @@
     
 <div class="row">
 
-  <% for( var i = 1; i < 14  ; i++){ %>
+  <% cars.forEach(function (car) { %>
   <div class="col-lg-4">
     <div class="panel panel-default">
-      <div class="panel-heading">Panel heading</div>
+      <div class="panel-heading"><%= car.name + "-" + car.model%> </div>
       <div class="panel-body">
         
 					<div id="carousel-example-generic" class="carousel slide" style="width: 80%; margin: 0 auto">
@@ -62,7 +62,7 @@
       </div>
     </div>
     </div>
-    <% } %>
+    <% }); %>
   
 </div>
 	  

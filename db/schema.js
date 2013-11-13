@@ -36,3 +36,13 @@ var Category = describe('Category', function () {
     set('restPath', pathTo.categories);
 });
 
+var Car = describe('Car', function () {
+    property('name', String);
+    property('model', String);
+    property('description', String);
+    property('category', String);
+    property('maker', String);
+    property('pics', String, { default: new Array()} );
+    set('restPath', pathTo.cars);
+});
+

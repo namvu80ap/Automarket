@@ -1,6 +1,9 @@
 exports.routes = function (map) {
+    map.resources('cars');
+
 	//map.root('home#index');
 	map.get('/', 'home#index');
+	map.get('/about', 'home#about');
     map.resources('categories');
 
     map.resources('items');

@@ -1,5 +1,22 @@
+action('about', function () {
+	this.title = 'Automarket';
+	render({  
+	      title: "About Us"  
+	});
+});
 action('index', function () {
-	render( {title: "Posts index" } );
+	this.title = 'Automarket';
+    Car.all(function (err, cars) {
+        switch (params.format) {
+            case "json":
+                send({code: 200, data: cars});
+                break;
+            default:
+                render({
+                    cars: cars
+                });
+        }
+    });
 });
 
 /**  
