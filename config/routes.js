@@ -14,6 +14,6 @@ exports.routes = function (map) {
     map.all(':controller/:action/:id');
     
     //Update
-    map.get('upload_form', 'upload#upload_form');  
+    map.get('upload', 'upload#upload_form');  
     map.post('upload_file', 'upload#upload_file');
 };
