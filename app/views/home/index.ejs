@@ -12,9 +12,11 @@
   </div>
 </div> <!-- BANNER -->
     
+<!-- LIST CAR -->
 <div class="row">
-
-  <% cars.forEach(function (car) { %>
+  <% var BreakException= {}; %>
+	<% var limit = 2; %>
+  <% try{ cars.forEach(function (car) { %>
   <div class="col-lg-4">
     <div class="panel panel-default">
       <div class="panel-heading"><%= car.name + "-" + car.model%> </div>
@@ -63,7 +65,11 @@
       </div>
     </div>
     </div>
+    <% limit--; %>
+    <% if( limit === 0) throw BreakException; %>
     <% }); %>
+    <% } catch(e){ if (e!==BreakException) throw e; }%>
+    
   
 </div>
 	  
