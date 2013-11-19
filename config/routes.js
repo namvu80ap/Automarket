@@ -1,12 +1,16 @@
 exports.routes = function (map) {
     map.resources('cars');
 
+    map.resources('cars');
+    map.resources('categories');
+    map.resources('items');
+    
 	//map.root('home#index');
 	map.get('/', 'home#index');
+	map.post('/login', 'home#login');
+	map.get('/goLogin', 'home#goLogin');
 	map.get('/about', 'home#about');
-    map.resources('categories');
 
-    map.resources('items');
     
     // Generic routes. Add all your routes below this line
     // feel free to remove generic routes

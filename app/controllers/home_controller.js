@@ -18,6 +18,24 @@ action('index', function () {
         }
     });
 });
+action('goLogin', function () {
+	render({  
+	      title: "LOGIN PAGE"  
+	});
+});
+action('login', function signin() {
+    if ( req.body.username == "nam" && req.body.password =="nam" ) {
+    	var user = {};
+    	user.name = req.body.username;
+    	req.session.user = user;
+    	redirect('/');
+    } else {
+        flash('error', 'error');
+        redirect('/');
+    }
+ 
+});
+
 
 /**  
  *   

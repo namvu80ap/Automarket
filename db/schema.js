@@ -38,11 +38,12 @@ var Category = describe('Category', function () {
 
 var Car = describe('Car', function () {
     property('name', String);
-    property('model', String);
     property('description', String);
-    property('category', String);
     property('maker', String);
+    property('model', String);
+    property('price', Number);
+    property('proDate', String);
+    property('leftRight', Boolean);
     property('pics', String, { default: new Array()} );
-    set('restPath', pathTo.cars);
+    set('restPath', pathTo.Cars);
 });
-

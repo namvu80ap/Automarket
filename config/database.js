@@ -1,9 +1,7 @@
 module.exports = 
   { "development":
     { "driver":   "mongodb",
-      "host": "localhost",
-      "port": "27017",
-      "database": "automarket"
+	  "url": "mongodb://nam:nam@paulo.mongohq.com:10063/automarket"
     }
   , "test":
     { "driver":   "memory"
