@@ -8,7 +8,7 @@
 <div class="control-group">
    <%- form.label("description", false, {class: "control-label"}) %>
    <div class="controls">
-       <%- form.input("description") %>
+       <%- form.textarea("description",{ cols : 100, rows : 10 , placeholder : "Please enter Car description ..." }) %>
    </div>
 </div>
 <div class="control-group">
@@ -44,5 +44,8 @@
        <%- form.checkbox("leftRight") %>
 
    </div>
-
+   
 </div>
+<script type="text/javascript">
+	$('#description').wysihtml5();
+</script>
