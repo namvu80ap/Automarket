@@ -1,6 +1,7 @@
 module.exports = function (compound) {
   var defaultModules = [
       'jugglingdb',
+      'dropbox',
       'co-assets-compiler'
     ], developmentModules = [];
 
@@ -11,7 +12,7 @@ module.exports = function (compound) {
       'co-generators'
     ]
   }
-
+  
   if (typeof window === 'undefined') {
     return defaultModules.concat(developmentModules).map(require);
   } else {

@@ -5,6 +5,7 @@ action('about', function () {
 	});
 });
 action('index', function () {
+	
 	this.title = 'Automarket';
     Car.all(function (err, cars) {
         switch (params.format) {

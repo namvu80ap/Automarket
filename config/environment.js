@@ -2,7 +2,8 @@ module.exports = function (compound) {
 
     var express = require('express');
     var app = compound.app;
-
+    var Dropbox = require("dropbox");
+    
     app.configure(function(){
         app.use(express.static(app.root + '/public', { maxAge: 86400000 }));
         app.set('jsDirectory', '/javascripts/');
