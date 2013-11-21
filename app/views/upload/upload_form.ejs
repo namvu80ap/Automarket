@@ -1,24 +1,29 @@
 <p></p>
+<div class="row">
+	<strong>Upload file to <%=data.name%> - <%=data.model%> </strong>
+</div>
 <div class="row" > 
  <% var form = formFor('upload_test', {action: 'upload_file', method: 'POST', id: "upload-form", class: 'form-horizontal', enctype: 'multipart/form-data'}) %>  
 
  <%- form.begin() %>  
-   <%- include _form_upload %>  
-
+   <%- include _form_upload %>
+   <input type="hidden" name="carId" value="<%= data.id %>" />
    <div class="form-actions">  
      <%- form.submit('<i class="icon-ok icon-white"></i> Save & upload file', {class: 'btn btn-primary'}) %>  
    </div>  
 
  <%- form.end() %>
  </div> 
+ <!-- 
  <p><a data-toggle="lightbox" href="#demoLightbox1">Small Lightbox</a>
 
 </p>
 <div id="demoLightbox1" class="lightbox fade" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="lightbox-dialog">
         <div class="lightbox-content">
-            <!-- <img src="http://jbutz.github.io/bootstrap-lightbox/assets/img/large.png"> -->
+            <img src="http://jbutz.github.io/bootstrap-lightbox/assets/img/large.png"> 
             <img src="01w.jpg">
         </div>
     </div>
 </div>
+ -->

@@ -14,10 +14,12 @@ exports.routes = function (map) {
     
     // Generic routes. Add all your routes below this line
     // feel free to remove generic routes
-    map.all(':controller/:action');
-    map.all(':controller/:action/:id');
+    //map.all(':controller/:action');
+    //map.all(':controller/:action/:id');
+	
+	//map.all('/cars' , 'car#index');
     
     //Update
-    map.get('upload', 'upload#upload_form');  
-    map.post('upload_file', 'upload#upload_file');
+    map.get('/upload/upload_pic', 'upload#upload_form');
+    map.post('/upload/upload_file', 'upload#upload_file');
 };

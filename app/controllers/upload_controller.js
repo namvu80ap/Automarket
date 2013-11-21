@@ -5,10 +5,15 @@ var Dropbox = require("dropbox");
  *   
  * show upload form  
  */  
-action('upload_form', function () {   
- render({  
-  title: "upload_controller#upload_form"  
- });  
+action('upload_form', function () {
+	console.log(req.query.id);
+	Car.find( req.query.id ,function (err, car){
+		    render({
+		    	title: "Upload Car Pic",
+		    	data: car
+		    });
+ 		}
+ 	);
 });  
 
 /**  
@@ -18,7 +23,16 @@ action('upload_form', function () {
 action('upload_file', function () {   
 
   var fs = require('fs');  
-
+  var id = req.body.carId;
+  
+  var picArr = [] ;
+  Car.find( id, function( err, car ){
+	  if( car.pics ){
+		  picArr = car.pics;
+	  }
+  } );
+  
+  console.log( "================" );
   this.file_name = req.body.file_name;  
   this.uploaded_file_tmp = req.files.file.path;  
   this.uploaded_file_type = req.files.file.type;  
@@ -49,7 +63,7 @@ action('upload_file', function () {
 	    fs.readFile( req.files.file.path , function read( err, data ){
 	    	if( err )console.log( err );
 	    	console.log(data);
-		    client.writeFile("hello_world2.jpg", data , function(error, stat) {
+		    client.writeFile("hello_world3.jpg", data , function(error, stat) {
 		    	console.log("do copy");
 		    	
 		    	console.log(error);
@@ -59,11 +73,14 @@ action('upload_file', function () {
 				client.makeUrl( "hello_world2.jpg", { downloadHack:true }, function( err, url ){
 			    	if(err) console.log(err);
 			    	console.log(url);
+			    	picArr[picArr.length] = { url: url.url };
+			    	Car.find(id, function( err, car ){
+			    		//car.pics = picArr;
+			    		car.updateAttributes( { pics : picArr } , function(err){ if(err) console.log(err); } );
+			    	})
 			    } );
 				
 				});
-		    
-	    
 	    });
   	});
 	
