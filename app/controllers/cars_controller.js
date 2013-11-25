@@ -63,7 +63,12 @@ action(function show() {
 });
 
 action(function edit() {
-    this.title = 'Car edit';
+    
+	this.title = 'Car edit';
+	console.log("---------");
+	console.log(this.car.pics);
+    
+    
     switch(params.format) {
         case "json":
             send(this.car);
