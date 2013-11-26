@@ -66,11 +66,20 @@ action('upload_file', function () {
 					client.makeUrl( id +"/"+ req.files.file.name  , { downloadHack:true }, function( err, url ){
 				    	if(err) console.log(err);
 				    	
-				    	Car.find(id, function( err, car ){
-				    		console.log(car);
-				    		car.pics.push( url.url);
-				    		car.updateAttributes( { pics : car.pics } , function(err){ if(err) console.log(err); } );
-				    	})
+				    	var carPic = {};
+				    	carPic.carId = id;
+				    	carPic.name = req.files.file.name;
+				    	carPic.url = url.url;
+				    	CarPic.create( carPic , function (err, carPic) {
+				    		if(err) console.log( err );
+				    		console.log( carPic )
+				    	});
+				    	
+//				    	Car.find(id, function( err, car ){
+//				    		console.log(car);
+//				    		car.pics.push( url.url);
+//				    		car.updateAttributes( { pics : car.pics } , function(err){ if(err) console.log(err); } );
+//				    	})
 				    	
 				    } );
 					

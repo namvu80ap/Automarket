@@ -47,3 +47,10 @@ var Car = describe('Car', function () {
     property('pics', String, { default: new Array()} );
     set('restPath', pathTo.Cars);
 });
+
+var CarPic = describe('CarPic', function () {
+	property('carId', String);
+    property('name', String);
+    property('url', String);
+    set('restPath', pathTo.CarPics);
+});
