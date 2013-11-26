@@ -14,7 +14,7 @@ action('index', function () {
     	async.each( cars , 
     				function( item , callback ){
     					
-    					CarPic.all( { where: { id : item.id } }, function( err, carPics ){
+    					CarPic.all( { where: { carId : 'Honda' } }, function( err, carPics ){
     						console.log( carPics );
     						obj[count] = { car : item , pics : carPics };
     						count++;
