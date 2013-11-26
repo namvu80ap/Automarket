@@ -24,11 +24,15 @@ action('upload_file', function () {
 
   var fs = require('fs');  
   var id = req.body.carId;
- 
-  this.file_name = req.body.file_name;  
+  
+  console.log(req.files.file);
+  console.log("==========");
+  
+  var file_name = ( req.body.file_name != "")? req.body.file_name : req.files.file.name;  
   this.uploaded_file_tmp = req.files.file.path;
   this.uploaded_file_type = req.files.file.type;
-  this.uploaded_file_name = req.files.file.name;
+  
+  //this.uploaded_file_name = req.files.file.name;
   //var new_file = "./public/"+this.uploaded_file_name;
   
   // Server-side applications use both the API key and secret.
@@ -57,18 +61,18 @@ action('upload_file', function () {
 		    	if( err )console.log( err );
 		    	
 		    	//Write fiel
-			    client.writeFile( id +"/"+req.files.file.name , data , function(error, stat) {
+			    client.writeFile( id +"/"+ file_name + ".jpg" , data , function(error, stat) {
 			    	
 			    	if(error) console.log(error);
 					
 					//console.log(stat);
 					
-					client.makeUrl( id +"/"+ req.files.file.name  , { downloadHack:true }, function( err, url ){
+					client.makeUrl( id +"/"+ file_name + ".jpg" , { downloadHack:true }, function( err, url ){
 				    	if(err) console.log(err);
 				    	
 				    	var carPic = {};
 				    	carPic.carId = id;
-				    	carPic.name = req.files.file.name;
+				    	carPic.name = file_name;
 				    	carPic.url = url.url;
 				    	CarPic.create( carPic , function (err, carPic) {
 				    		if(err) console.log( err );
@@ -97,5 +101,5 @@ action('upload_file', function () {
 //	  });  
 
   console.log(this.uploaded_file_type);  
-  redirect("upload/upload_pic?id=528b729be1ef5c4306000001");  
+  redirect("upload/upload_pic?id="+id);  
 });   

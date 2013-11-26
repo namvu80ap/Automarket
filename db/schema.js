@@ -49,8 +49,9 @@ var Car = describe('Car', function () {
 });
 
 var CarPic = describe('CarPic', function () {
-	property('carId', String);
+    property('carId', String);
     property('name', String);
     property('url', String);
     set('restPath', pathTo.CarPics);
 });
+

@@ -1,4 +1,6 @@
 exports.routes = function (map) {
+    map.resources('carpics');
+
     map.resources('cars');
 
     map.resources('cars');

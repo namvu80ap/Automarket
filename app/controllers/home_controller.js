@@ -7,17 +7,39 @@ action('about', function () {
 action('index', function () {
 	
 	this.title = 'Automarket';
+	var async = require('async');
+	var obj = [];
+	var count = 0;
     Car.all(function (err, cars) {
-        switch (params.format) {
-            case "json":
-                send({code: 200, data: cars});
-                break;
-            default:
-                render({
-                    cars: cars
-                });
-        }
+    	async.each( cars , 
+    				function( item , callback ){
+    					
+    					CarPic.all( { where: { id : item.id } }, function( err, carPics ){
+    						console.log( carPics );
+    						obj[count] = { car : item , pics : carPics };
+    						count++;
+    						callback();
+    					} );
+    					
+    				} , 
+    				function( error ){
+    					//console.log(obj);
+    					switch (params.format) {
+    			        case "json":
+    			            send({code: 200, data: cars});
+    			            break;
+    			        default:
+    			            render({
+    			                cars: cars,
+    			                obj:obj
+    			            });
+    			        }
+    				}
+    			
+    	);
+    	
     });
+    
 });
 action('goLogin', function () {
 	render({  
