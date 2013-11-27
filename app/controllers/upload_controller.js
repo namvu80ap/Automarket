@@ -23,8 +23,8 @@ action('upload_form', function () {
 action('upload_file', function () {   
 
   var fs = require('fs');  
-  var id = req.body.carId;
-  
+  var id = req.body.id;
+  var carId = req.body.carId;
   console.log(req.files.file);
   console.log("==========");
   
@@ -71,7 +71,7 @@ action('upload_file', function () {
 				    	if(err) console.log(err);
 				    	
 				    	var carPic = {};
-				    	carPic.carId = id;
+				    	carPic.carId = carId;
 				    	carPic.name = file_name;
 				    	carPic.url = url.url;
 				    	CarPic.create( carPic , function (err, carPic) {

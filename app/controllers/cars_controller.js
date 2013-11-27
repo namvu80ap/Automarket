@@ -11,29 +11,34 @@ action('new', function () {
 });
 
 action(function create() {
-    Car.create(req.body.Car, function (err, car) {
-        respondTo(function (format) {
-            format.json(function () {
-                if (err) {
-                    send({code: 500, error: car && car.errors || err});
-                } else {
-                    send({code: 200, data: car.toObject()});
-                }
-            });
-            format.html(function () {
-                if (err) {
-                    flash('error', 'Car can not be created');
-                    render('new', {
-                        car: car,
-                        title: 'New car'
-                    });
-                } else {
-                    flash('info', 'Car created');
-                    redirect(path_to.cars);
-                }
-            });
-        });
-    });
+	Car.count( function( err, count ){
+		req.body.Car.carId = count + 1 ;
+		Car.create( req.body.Car, function (err, car) {
+	        respondTo(function (format) {
+	            format.json(function () {
+	                if (err) {
+	                    send({code: 500, error: car && car.errors || err});
+	                } else {
+	                    send({code: 200, data: car.toObject()});
+	                }
+	            });
+	            format.html(function () {
+	                if (err) {
+	                    flash('error', 'Car can not be created');
+	                    render('new', {
+	                        car: car,
+	                        title: 'New car'
+	                    });
+	                } else {
+	                    flash('info', 'Car created');
+	                    redirect(path_to.cars);
+	                }
+	            });
+	        });
+	    });
+	
+	});
+    
 });
 
 action(function index() {

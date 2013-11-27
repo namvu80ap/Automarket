@@ -7,7 +7,8 @@
 
  <%- form.begin() %>  
    <%- include _form_upload %>
-   <input type="hidden" name="carId" value="<%= data.id %>" />
+   <input type="hidden" name="id" value="<%= data.id %>" />
+   <input type="hidden" name="carId" value="<%= data.carId %>" />
    <div class="form-actions">  
      <%- form.submit('<i class="icon-ok icon-white"></i> Save & upload file', {class: 'btn btn-primary'}) %>  
    </div>  

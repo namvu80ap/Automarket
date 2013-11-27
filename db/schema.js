@@ -37,6 +37,7 @@ var Category = describe('Category', function () {
 });
 
 var Car = describe('Car', function () {
+	property('carId', String);
     property('name', String);
     property('description', String);
     property('maker', String);
