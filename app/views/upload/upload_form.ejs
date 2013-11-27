@@ -1,30 +1,38 @@
 <p></p>
-<div class="row">
-	<strong>Upload file to <%=data.name%> - <%=data.model%> </strong>
-</div>
-<div class="row" > 
- <% var form = formFor('upload_test', {action: 'upload_file', method: 'POST', id: "upload-form", class: 'form-horizontal', enctype: 'multipart/form-data'}) %>  
-
- <%- form.begin() %>  
-   <%- include _form_upload %>
-   <input type="hidden" name="id" value="<%= data.id %>" />
-   <input type="hidden" name="carId" value="<%= data.carId %>" />
-   <div class="form-actions">  
-     <%- form.submit('<i class="icon-ok icon-white"></i> Save & upload file', {class: 'btn btn-primary'}) %>  
-   </div>  
-
- <%- form.end() %>
- </div> 
- <!-- 
- <p><a data-toggle="lightbox" href="#demoLightbox1">Small Lightbox</a>
-
-</p>
-<div id="demoLightbox1" class="lightbox fade" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="lightbox-dialog">
-        <div class="lightbox-content">
-            <img src="http://jbutz.github.io/bootstrap-lightbox/assets/img/large.png"> 
-            <img src="01w.jpg">
+<div class="bs-docs-section">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="well">
+              	<div class="row">
+					 <legend><strong>Upload file to <%=data.name%> - <%=data.model%> </strong></legend>
+				</div>
+				<div class="row" > 
+				 <% var form = formFor('upload_test', {action: 'upload_file', method: 'POST', id: "upload-form", class: 'bs-example form-horizontal', enctype: 'multipart/form-data'}) %>  
+				
+				 <%- form.begin() %>  
+				   <div class="form-group">
+                    <label for="inputEmail" class="col-lg-2 control-label">File Name</label>
+                    <div class="col-lg-10">
+                       <%- form.input('file_name') %>
+                    </div>
+					</div>
+					<div class="form-group">
+					  <label for="inputPassword" class="col-lg-2 control-label">File</label>
+					  <div class="col-lg-10">
+					    <%- form.file('file') %>
+					  </div>
+					</div>
+					<input type="hidden" name="id" value="<%= data.id %>" />
+					<input type="hidden" name="carId" value="<%= data.carId %>" />
+					<div class="form-group">
+		          		<div class="col-lg-10 col-lg-offset-2">
+		             	<%- form.submit('<i class="icon-ok icon-white"></i> Save & upload file', {class: 'btn btn-primary'}) %>
+		             	</div>
+					</div>
+				 <%- form.end() %>
+				 </div> 
+            </div>
+          </div>
         </div>
-    </div>
 </div>
- -->
+
