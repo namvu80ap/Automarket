@@ -26,7 +26,7 @@
             <tbody>
                 <% cars.forEach(function (car) { %>
                 <tr>
-                    <td><strong><%- link_to('car #' + car.id, pathTo.car(car)) %></strong></td>
+                    <td><strong><%- link_to('car #' + car.name, pathTo.car(car)) %></strong></td>
                     <td>
                         <%- link_to('<i class="icon-edit"></i> Edit', pathTo.edit_car(car), {class: 'btn btn-mini'}) %>
                         <%- link_to('<i class="icon-remove icon-white"></i> Delete', pathTo.car(car), {class: 'btn btn-mini btn-danger', method: 'delete', remote: true, jsonp: '(function (u) {location.href = u;})'}) %>
