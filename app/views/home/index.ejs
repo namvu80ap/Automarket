@@ -18,7 +18,7 @@
   <% try{ obj.forEach(function(car) { %>
   <div class="col-lg-4">
     <div class="panel panel-default">
-      <div class="panel-heading"><%= car.car.name + "-" + car.car.model%> </div>
+      <div class="panel-heading"><%- link_to( car.car.name + "-" + car.car.model , '/viewCar?carId=' + car.car.id ) %></div>
       <div class="panel-body">
           <% if( car.pics ) { %>
 					<div id="<%=car.car.id%>" class="carousel slide" style="width: 80%; margin: 0 auto">

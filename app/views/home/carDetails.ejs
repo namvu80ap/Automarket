@@ -1,0 +1,57 @@
+
+<div class="page-header">
+    <h1><%= car.car.name %> - <%= car.car.model %></h1>
+</div>
+
+<div class="row">
+		<% var count = 0 %>
+		<% car.pics.forEach( function( pic ){  %>
+	    <div class="col-xs-4">
+	        <a href="#" class="thumbnail" id="pic" data-toggle="modal" data-target="#myModal" >
+	        <img src="<%= pic.url %>" alt="">
+	        </a>
+	    </div>
+    <% }); %>
+</div>
+<table class="table table-bordered">
+    <tbody>
+        <tr><th>name</th><td><%= car.car.name %></td></tr>
+
+        <tr><th>description</th><td><%= car.car.description %></td></tr>
+
+        <tr><th>maker</th><td><%= car.car.maker %></td></tr>
+
+        <tr><th>model</th><td><%= car.car.model %></td></tr>
+
+        <tr><th>price</th><td><%= car.car.price %>$</td></tr>
+
+        <tr><th>proDate</th><td><%= car.car.proDate %></td></tr>
+
+        <tr><th>leftRight</th><td><%= car.car.leftRight %></td></tr>
+    </tbody>
+</table>
+
+<div class="well">
+    <%- link_to('CONTACT US TO BUY THIS CAR: automarketjapan@gmail.com', 'mailTo:automarketjapan@gmail.com') %>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal-pic" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">View Picture</h4>
+      </div>
+      <div class="modal-body">
+        <img src="https://dl.dropboxusercontent.com/s/w16zuh3c6keu7ph/Mecs1.jpg" alt="">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+$(".thumbnail").click( function(){
+	var img = $(this).html();
+	$('#myModal .modal-body').html(img);
+	$('#myModal').modal('show');
+</script>
