@@ -38,17 +38,21 @@ action(function create() {
 
 action(function index() {
     this.title = 'CarPics index';
-    CarPic.all(function (err, carpics) {
-        switch (params.format) {
-            case "json":
-                send({code: 200, data: carpics});
-                break;
-            default:
-                render({
-                    carpics: carpics
-                });
-        }
-    });
+    var carId = req.query.carId;
+    Car.all( { where : { carId : carId }}, function( error , cars ){
+    	CarPic.all({ where : { carId : carId } }, function (err, carpics) {
+            switch (params.format) {
+                case "json":
+                    send({code: 200, data: carpics});
+                    break;
+                default:
+                    render({
+                        carpics: carpics,
+                        car: cars[0]
+                    });
+            }
+        });
+    } );
 });
 
 action(function show() {
@@ -99,23 +103,26 @@ action(function update() {
 });
 
 action(function destroy() {
+	var carId = this.CarPic.carId;
     this.CarPic.destroy(function (error) {
         respondTo(function (format) {
-            format.json(function () {
-                if (error) {
-                    send({code: 500, error: error});
-                } else {
-                    send({code: 200});
-                }
-            });
-            format.html(function () {
-                if (error) {
-                    flash('error', 'Can not destroy CarPic');
-                } else {
-                    flash('info', 'CarPic successfully removed');
-                }
-                send("'" + path_to.carpics + "'");
-            });
+        	Car.all( { where : { carId : carId } } , function( err, cars ) {
+        		format.json(function () {
+                    if (error) {
+                        send({code: 500, error: error});
+                    } else {
+                        send({code: 200});
+                    }
+                });
+                format.html(function () {
+                    if (error) {
+                        flash('error', 'Can not destroy CarPic');
+                    } else {
+                        flash('info', 'CarPic successfully removed');
+                    }
+                    redirect("viewCar?carId="+ cars[0].id);
+                });
+        	});            
         });
     });
 });
