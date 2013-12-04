@@ -62,7 +62,7 @@ action('goLogin', function () {
  * TODO- Hardcode username and password
  */
 action('login', function signin() {
-    if ( req.body.username == "nam" && req.body.password =="nam" ) {
+    if ( req.body.username == "kuzo" && req.body.password =="automarket" ) {
     	var user = {};
     	user.name = req.body.username;
     	req.session.user = user;
