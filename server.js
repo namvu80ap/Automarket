@@ -14,7 +14,7 @@ var app = module.exports = function getServerInstance(params) {
 };
 
 if (!module.parent) {
-    var host = process.env.OPENSHIFT_NODEJS_IP || "localhost" ;
+    var host = process.env.OPENSHIFT_NODEJS_IP || "172.31.6.24" ;
     var port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
     var server = app();
