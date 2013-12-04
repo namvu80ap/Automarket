@@ -31,4 +31,5 @@
     <%- link_to('<i class="icon-remove icon-white"></i> Delete', pathTo.car(car), {class: 'btn btn-danger', method: 'delete', remote: true, jsonp: '(function (u) { location.href = u; })'}) %>
     or
     <%- link_to('Back to index', pathTo.cars) %>
+    <p><%- link_to('<i class="icon-plus icon-white"></i> Upload New Image', 'carpics?carId=' + car.carId , {class: 'btn btn-primary'}) %></>
 </div>

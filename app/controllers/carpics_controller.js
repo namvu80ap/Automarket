@@ -120,7 +120,7 @@ action(function destroy() {
                     } else {
                         flash('info', 'CarPic successfully removed');
                     }
-                    redirect("viewCar?carId="+ cars[0].id);
+                    redirect("cars/"+ cars[0].id);
                 });
         	});            
         });
