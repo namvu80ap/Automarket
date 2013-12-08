@@ -6,7 +6,7 @@ action('index', function () {
 	var async = require('async');
 	var obj = [];
 	var count = 0;
-    Car.all(function (err, cars) {
+    Car.all({ where : { available : true } }, function (err, cars) {
     	async.each( cars , 
     				function( item , callback ){
     					
