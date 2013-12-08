@@ -1,7 +1,7 @@
 module.exports = 
   { "development":
     { "driver":   "mongodb",
-	  "url": "mongodb://nam:nam@paulo.mongohq.com:10063/automarket"
+	  "url": "mongodb://namvu80ap:thanhcong@ds053808.mongolab.com:53808/automarket"
     }
   , "test":
     { "driver":   "memory"
