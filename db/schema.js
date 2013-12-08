@@ -44,8 +44,7 @@ var Car = describe('Car', function () {
     property('model', String);
     property('price', Number);
     property('proDate', String);
-    property('leftRight', Boolean);
-    property('pics', String, { default: new Array()} );
+    property('available', Boolean);
     set('restPath', pathTo.Cars);
 });
 

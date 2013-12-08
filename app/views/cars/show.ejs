@@ -10,19 +10,19 @@
 
 <table class="table table-bordered">
     <tbody>
-        <tr><th>name</th><td><%= car.name %></td></tr>
+        <tr><th>Name</th><td><%= car.name %></td></tr>
 
-        <tr><th>description</th><td><%- car.description %></td></tr>
+        <tr><th>Description</th><td><%- car.description %></td></tr>
 
-        <tr><th>maker</th><td><%= car.maker %></td></tr>
+        <tr><th>Maker</th><td><%= car.maker %></td></tr>
 
-        <tr><th>model</th><td><%= car.model %></td></tr>
+        <tr><th>Model</th><td><%= car.model %></td></tr>
 
-        <tr><th>price</th><td><%= car.price %></td></tr>
+        <tr><th>Price</th><td><%= car.price %></td></tr>
 
-        <tr><th>proDate</th><td><%= car.proDate %></td></tr>
+        <tr><th>ProDate</th><td><%= car.proDate %></td></tr>
 
-        <tr><th>leftRight</th><td><%= car.leftRight %></td></tr>
+        <tr><th>Available</th><td><%= (car.available) ? 'YES' : 'NO' %></td></tr>
     </tbody>
 </table>
 
@@ -31,5 +31,5 @@
     <%- link_to('<i class="icon-remove icon-white"></i> Delete', pathTo.car(car), {class: 'btn btn-danger', method: 'delete', remote: true, jsonp: '(function (u) { location.href = u; })'}) %>
     or
     <%- link_to('Back to index', pathTo.cars) %>
-    <p><%- link_to('<i class="icon-plus icon-white"></i> Upload New Image', 'carpics?carId=' + car.carId , {class: 'btn btn-primary'}) %></>
+    <p><%- link_to('<i class="icon-plus icon-white"></i> Upload New Image', '/carpics?carId=' + car.carId , {class: 'btn btn-primary'}) %></>
 </div>
