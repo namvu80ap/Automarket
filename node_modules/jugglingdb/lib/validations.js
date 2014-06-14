@@ -22,7 +22,7 @@ var Validatable = require('./model.js');
 
 /**
  * Validate presence. This validation fails when validated field is blank.
- * 
+ *
  * Default error message "can't be blank"
  *
  * @example presence of title
@@ -92,7 +92,7 @@ Validatable.validatesNumericalityOf = getConfigurator('numericality');
 /**
  * Validate inclusion in set
  *
- * @example 
+ * @example
  * ```
  * User.validatesInclusionOf('gender', {in: ['male', 'female']});
  * User.validatesInclusionOf('role', {
@@ -338,10 +338,28 @@ function getConfigurator(name, opts) {
  *     if (valid) res.render({user: user});
  *     else res.flash('error', 'User is not valid'), console.log(user.errors), res.redirect('/users');
  * });
+ *
+ * // when the callback needs two arguments,
+ * // the first argument is the validation errors,
+ * // or error from `beforeValidate/afterValidate` hook
+ * user.isValid(function (error, isValid) {
+ *     error; // error from `beforeValidate`, mostly `null`
+ * })
  * ```
  */
 Validatable.prototype.isValid = function (callback, data) {
     var valid = true, inst = this, wait = 0, async = false;
+
+    callback = callback || NOOP;
+
+    // callback only needs one arguments, then the signature is `callback(valid)`
+    // convert it to standard node.js callback style
+    if (callback.length < 2) {
+        var _callback = callback;
+        callback = function (err, valid) {
+            _callback(valid);
+        };
+    }
 
     // exit with success when no errors
     if (!this.constructor._validations) {
@@ -349,9 +367,9 @@ Validatable.prototype.isValid = function (callback, data) {
         if (callback) {
             this.trigger('validate', function (validationsDone) {
                 validationsDone.call(inst, function() {
-                    callback(valid);
+                    callback(null, valid);
                 });
-            });
+            }, data, function (err) { callback(err, false) });
         }
         return valid;
     }
@@ -359,7 +377,7 @@ Validatable.prototype.isValid = function (callback, data) {
     Object.defineProperty(this, 'errors', {
         enumerable: false,
         configurable: true,
-        value: new Errors
+        value: new Errors(this)
     });
 
     this.trigger('validate', function (validationsDone) {
@@ -385,7 +403,7 @@ Validatable.prototype.isValid = function (callback, data) {
             validationsDone.call(inst, function() {
                 if (valid) cleanErrors(inst);
                 if (callback) {
-                    callback(valid);
+                    callback(valid ? null : new ValidationError(this), valid);
                 }
             });
         }
@@ -396,13 +414,13 @@ Validatable.prototype.isValid = function (callback, data) {
                 validationsDone.call(inst, function () {
                     if (valid && !asyncFail) cleanErrors(inst);
                     if (callback) {
-                        callback(valid && !asyncFail);
+                        callback(valid ? null : new ValidationError(this), valid && !asyncFail);
                     }
                 });
             }
         }
 
-    }, data);
+    }, data, function (err) { callback(err, false) });
 
     if (async) {
         // in case of async validation we should return undefined here,
@@ -418,7 +436,7 @@ function cleanErrors(inst) {
     Object.defineProperty(inst, 'errors', {
         enumerable: false,
         configurable: true,
-        value: false
+        value: null
     });
 }
 
@@ -570,11 +588,17 @@ function configure(cls, validation, args, opts) {
     });
 }
 
-function Errors() {
-    Object.defineProperty(this, 'codes', {
+function Errors(obj) {
+    Object.defineProperty(this, '__codes', {
         enumerable: false,
         configurable: true,
         value: {}
+    });
+
+    Object.defineProperty(this, '__obj', {
+        enumerable: false,
+        configurable: true,
+        value: obj
     });
 }
 
@@ -582,16 +606,28 @@ Errors.prototype.add = function (field, message, code) {
     code = code || 'invalid';
     if (!this[field]) {
         this[field] = [];
-        this.codes[field] = [];
+        this.__codes[field] = [];
     }
     this[field].push(message);
-    this.codes[field].push(code);
+    this.__codes[field].push(code);
+};
+
+Errors.prototype.__localize = function localize(locale) {
+    var errors = this, result = {}, i18n, v, codes = this.__codes;
+    i18n = this.__obj.constructor.i18n;
+    v = i18n && i18n[locale] && i18n[locale].validation;
+    Object.keys(codes).forEach(function(prop) {
+        result[prop] = codes[prop].map(function(code, i) {
+            return v && v[prop] && v[prop][code] || errors[prop][i];
+        });
+    });
+    return result;
 };
 
 function ErrorCodes(messages) {
     var c = this;
     Object.keys(messages).forEach(function(field) {
-        c[field] = messages[field].codes;
+        c[field] = messages[field].__codes;
     });
 }
 
@@ -601,10 +637,13 @@ function ValidationError(obj) {
     this.name = 'ValidationError';
     this.message = 'Validation error';
     this.statusCode = 400;
-    this.codes = obj.errors && obj.errors.codes;
+    this.codes = obj.errors && obj.errors.__codes;
     this.context = obj && obj.constructor && obj.constructor.modelName;
 
     Error.call(this);
 };
+
+
+function NOOP(error, result) {}
 
 ValidationError.prototype.__proto__ = Error.prototype;

@@ -27,17 +27,20 @@ module.exports = function init(root) {
     var confFile = (root || app.root) + '/config/database';
     var appConf = app.get('database');
     var config = railway.orm.config = appConf || {};
+    var env = app.set('env');
     var schema;
 
     if (!railway.parent) {
         if (!appConf) {
             try {
                 var cf = require(confFile);
-                if (cf instanceof Array) cf = cf[0];
-                if (typeof cs === 'function') {
-                    config = cs(railway);
+                if (cf instanceof Array) {
+                    cf = cf[0];
+                }
+                if (typeof cf === 'function') {
+                    config = cf(railway);
                 } else {
-                    config = cf[app.set('env')];
+                    config = cf[env];
                 }
             } catch (e) {
                 console.log('Could not load config/database.{js|json|yml}');
@@ -45,12 +48,17 @@ module.exports = function init(root) {
             }
         }
 
+        if (!config) {
+            console.log('No environment ' + env + ' found in config/database.{js|json|yml}');
+            throw new Error('No environment ' + env + ' found in config/database.{js|json|yml}');
+        }
+
         // when driver name started with point - look for driver in app root (relative path)
         if (config.driver && config.driver.match(/^\./)) {
             config.driver = path.join(app.root, config.driver);
         }
 
-        var schema = new Schema(config && config.driver || 'memory', config);
+        schema = new Schema(config && config.driver || 'memory', config);
         schema.log = log;
         if (!schema.adapter) throw new Error('Adapter is not defined');
 
